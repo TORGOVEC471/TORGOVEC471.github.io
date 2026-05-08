@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бишкек Солидарный — Нужна помощь</title>
+    <link rel="icon" type="image/x-icon" href="../image/site/logo.svg">
+    <link rel="stylesheet" href="../../style.css">
+    <!-- Шрифты для текстов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="one-block">
+        <!-- 1. Хедер с лого и кнопками -->
+        <header class="header">
+            <div class="name-logo">
+                <div class="logo">
+                    <a href="../../index.html">
+                        <img src="../image/site/logo.svg" width=80px>
+                    </a>
+                </div><h1>Бишкек Солидарный</h1>
+            </div>
+            <nav class="nav-buttons">
+                <a href="./helpMe.html" class="btn-yellow">
+                    <div class="btn-image">
+                        <img src="../image/site/solar_hand-top.svg" width=30px>
+                        Нужна помощь
+                    </div>
+                </a>
+                <a href="./helpHim.html" class="btn-yellow">
+                    <div class="btn-image">
+                        <img src="../image/site/solar_hand-bottom.svg" width=30px>
+                        Хочу помочь
+                    </div>
+                </a>
+                <a href="./about.html" class="btn-yellow">О нас</a>
+            </nav>
+        </header>
+
+        <div id="quiz-app" class="quiz-card">
+            <!-- Сюда JS будет вставлять вопросы -->
+            <h2>Загрузка...</h2>
+        </div>
+
+    <script type="module">
+    // Import the functions you need from the SDKs you need
+    // Используем одну и ту же версию 10.8.0 везде
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyAHH9_cw0IWOnjkTw-W59y15-pg3v0-JzU",
+        authDomain: "bishkeksolid-db.firebaseapp.com",
+        projectId: "bishkeksolid-db",
+        storageBucket: "bishkeksolid-db.firebasestorage.app",
+        messagingSenderId: "1001353097895",
+        appId: "1:1001353097895:web:ec8ecbf5f80547ac2e2182",
+        measurementId: "G-5WVG70BREF"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Сделаем базу данных доступной для других скриптов
+    window.db = db;
+    </script>
+    
+    <script type="module" src="../scripts/Founds_test.js" defer></script>
+</body>
+</html>

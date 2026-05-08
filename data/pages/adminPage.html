@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бишкек Солидарный — Админ</title>
+    <link rel="icon" type="image/x-icon" href="../image/site/logo.svg">
+    <link rel="stylesheet" href="../../style.css">
+    <!-- Шрифты для текстов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <!-- <style>
+        #map { height: 600px; width: 100%; border: 2px solid #f0ad4e; margin-top: 20px; }
+    </style> -->
+</head>
+<body>
+    <div class="one-block map-page">
+        <!-- 1. Хедер с лого и кнопками -->
+        <header class="header">
+            <div class="name-logo">
+                <div class="logo">
+                    <a href="../../index.html">
+                        <img src="../image/site/logo.svg" width=80px>
+                    </a>
+                </div><h1>Бишкек Солидарный</h1>
+            </div>
+            <nav class="nav-buttons">
+                <a href="./helpMe.html" class="btn-yellow">
+                    <div class="btn-image">
+                        <img src="../image/site/solar_hand-top.svg" width=30px>
+                        Нужна помощь
+                    </div>
+                </a>
+                <a href="./helpHim.html" class="btn-yellow">
+                    <div class="btn-image">
+                        <img src="../image/site/solar_hand-bottom.svg" width=30px>
+                        Хочу помочь
+                    </div>
+                </a>
+                <a href="./about.html" class="btn-yellow">О нас</a>
+            </nav>
+        </header>
+        <!-- <div> -->
+            <div id="map" style="height: 80%; width: 80%; border-radius: 20px; display: flex; align-items: center;"></div>
+            <!-- После блока с картой -->
+            <div class="admin-panel" style="padding: 20px; font-family: 'Inter', sans-serif;">
+                <div class="filters" style="margin-bottom: 15px;">
+                    <button onclick="renderTable('all')" class="btn-yellow">Все метки</button>
+                    <button onclick="renderTable('pending')" class="btn-yellow">Только непроверенные</button>
+                </div>
+
+                <table id="markers-table" class="markers-table">
+                    <thead>
+                        <tr style="background: #ffcc00;">
+                            <th>Название</th>
+                            <th>Категория</th>
+                            <th>Описание</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Сюда скрипт вставит данные -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Модальное окно для редактирования (скрыто по умолчанию) -->
+            <div id="edit-modal" class="edit-modal">
+                <h3>Редактировать метку</h3>
+                <input type="hidden" id="edit-id">
+                <input type="text" id="edit-name" placeholder="Название"><br><br>
+                <textarea id="edit-text" placeholder="Описание"></textarea><br><br>
+                <button onclick="saveEdit()">Сохранить изменения</button>
+                <button onclick="document.getElementById('edit-modal').style.display='none'">Отмена</button>
+            </div>
+        <!-- </div> -->
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module">
+    // Import the functions you need from the SDKs you need
+    // Используем одну и ту же версию 10.8.0 везде
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyAHH9_cw0IWOnjkTw-W59y15-pg3v0-JzU",
+        authDomain: "bishkeksolid-db.firebaseapp.com",
+        projectId: "bishkeksolid-db",
+        storageBucket: "bishkeksolid-db.firebasestorage.app",
+        messagingSenderId: "1001353097895",
+        appId: "1:1001353097895:web:ec8ecbf5f80547ac2e2182",
+        measurementId: "G-5WVG70BREF"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Сделаем базу данных доступной для других скриптов
+    window.db = db;
+    </script>
+
+    <script type="module" src="../scripts/admin_map.js" defer></script>
+</body>
+</html>

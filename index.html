@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бишкек Солидарный</title>
+    <link rel="icon" type="image/x-icon" href="./data/image/site/logo.svg">
+    <link rel="stylesheet" href="style.css">
+    <!-- Шрифты для текстов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="one-block">
+        <!-- 1. Хедер с лого и кнопками -->
+        <header class="header">
+            <div class="name-logo">
+                <div class="logo">
+                    <img src="data/image/site/logo.svg" width=80px>
+                </div><h1>Бишкек Солидарный</h1>
+            </div>
+            <nav class="nav-buttons">
+                <a href="./data/pages/helpMe.html" class="btn-yellow">
+                    <div class="btn-image">
+                        <img src="data/image/site/solar_hand-top.svg" width=30px>
+                        Нужна помощь
+                    </div>
+                </a>
+                <a href="./data/pages/helpHim.html" class="btn-yellow">
+                    <div class="btn-image">
+                        <img src="data/image/site/solar_hand-bottom.svg" width=30px>
+                        Хочу помочь
+                    </div>
+                </a>
+                <a href="./data/pages/about.html" class="btn-yellow">О нас</a>
+            </nav>
+        </header>
+
+        <!-- 2. Главный экран (Hero) -->
+        <section class="hero">
+                <h2 style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">Бишкек — город неравнодушных людей<br>
+                Найдите тех, кому нужна помощь, прямо сейчас.</h2>
+                <div class="steps">
+                    <div class="step-card">
+                        <div class="zag">
+                            <img src="data/image/site/solar_magnifer-broken.svg" class="mini-image">
+                            Ищите
+                        </div>
+                        Выберите категорию помощи на карте (еда, одежда, волонтерство).
+                    </div>
+                    <div class="step-card">
+                        <div class="zag">
+                            <img src="data/image/site/material-symbols_handshake-outline.svg" class="mini-image">
+                            Связывайтесь
+                        </div>
+                        Кликните на точку и получите контакты организации или человека.
+                    </div>
+                    <div class="step-card">
+                        <div class="zag">
+                            <img src="data/image/site/solar_hand-heart-linear.svg" class="mini-image">
+                            Помогайте
+                        </div>
+                        Сделайте доброе дело и поделитесь результатом в соцсетях.
+                    </div>
+                </div>
+        </section>
+    </div>
+
+    <!-- 3. Актуальные сборы (Слайдер) -->
+    <section class="donations">
+        <div class="title-container">
+            <h2 class="section-title">
+            <img src="data/image/site/solar_hand-money-linear.svg" class="mini-image">
+            Актуальные сборы</h2>
+        </div>
+        <div class="slider">
+            <button class="arrow"><</button>
+
+            <div class="cards-wrapper">
+                <!-- Карточка сбора -->
+                <div class="yellow-card">
+                    <div class="white-square"></div>
+                    <div class="img-placeholder"></div>
+                    <h3>Название фонда</h3>
+                    <p>Краткое описание того чем занимаются.</p>
+                </div>
+                <div class="yellow-card">
+                    <div class="white-square"></div>
+                    <div class="img-placeholder"></div>
+                    <h3>Название фонда</h3>
+                    <p>Краткое описание того чем занимаются.</p>
+                </div>
+                <div class="yellow-card">
+                    <div class="white-square"></div>
+                    <div class="img-placeholder"></div>
+                    <h3>Название фонда</h3>
+                    <p>Краткое описание того чем занимаются.</p>
+                </div>
+            </div>
+            <button class="arrow">></button>
+        </div>
+    </section>
+
+    <!-- 4. Статистика -->
+    <section class="stats">
+        <div class="title-container">
+            <h2 class="section-title">
+            <img src="data/image/site/solar_heart-linear.svg" class="mini-image">
+            Статистика добра</h2>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item"><b>10</b><p>Проверенных организаций</p></div>
+            <div class="stat-item"><b>265</b><p>Оказанных консультаций</p></div>
+            <div class="stat-item"><b>120</b><p>Волонтеров с нами</p></div>
+        </div>
+    </section>
+
+    <!-- 5. Форма обратной связи -->
+    <section class="feedback">
+        <div class="title-container">
+            <h2 class="section-title">Нужна консультация?</h2>
+        </div>
+        <div class="feedback-container">
+            <form class="feedback-form">
+                <div class="name-go">
+                    <input type="text" placeholder="Имя">
+                    <input type="mail" placeholder="Почта">
+                    <button type="submit">Отправить</button>
+                </div>
+                <textarea placeholder="Ваш вопрос..."></textarea>
+            </form>
+        </div>
+    </section>
+
+    <!-- 6. Футер -->
+    <footer class="footer">
+        <div class="company">
+            <div class="name-logo-foot">
+                <div class="logo">
+                    <img src="data/image/site/logo.svg" width=60px>
+                </div><h1>Бишкек Солидарный</h1>
+            </div>
+            <h2>ОсОО "СолидКомпани"</h2>
+        </div>
+        <div class="contacts">
+            <h3>Наши контакты</h3>
+            <p>+996 XXX XXX XXX</p>
+            <p>SolidCompany@gmail.com</p>
+        </div>
+    </footer>
+
+    <script src="main.js" defer></script>
+</body>
+</html>
