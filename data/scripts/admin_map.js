@@ -1,7 +1,39 @@
 import { collection, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
 // Импортируем сам скрипт геокодера как модуль (если доступно) или используем рабочий хак:
 import "https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js";
+
+// Логин, пароль и вход
+const checkAdmin = () => {
+    const auth = window.auth;
+    const ADMIN_EMAIL = "ilagorborukov046@gmail.com";
+
+    if (!auth) {
+        setTimeout(checkAdmin, 100);
+        return;
+    }
+
+    // Слушатель состояния входа
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            // Если зашел не админ
+            if (user.email !== ADMIN_EMAIL) {
+                alert("У вас нет прав доступа!");
+                auth.signOut().then(() => {
+                    window.location.href = "login.html";
+                });
+            } else {
+                console.log("Привет, админ!");
+                loadAdminMarkers(); // Загружаем данные только после проверки
+            }
+        } else {
+            // Если пользователь вообще не авторизован
+            window.location.href = "login.html";
+        }
+    });
+};
+
+checkAdmin();
+
 
 // Координаты центра (Бишкек)
 const map = L.map('map').setView([42.8746, 74.5698], 13);
@@ -133,4 +165,4 @@ window.deleteMarker = async (id) => {
 };
 
 // Запуск
-loadAdminMarkers();
+// loadAdminMarkers();

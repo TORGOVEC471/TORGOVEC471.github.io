@@ -41,6 +41,7 @@
                     </div>
                 </a>
                 <a href="./about.html" class="btn-yellow">О нас</a>
+                <a onclick="window.auth.signOut()" class="btn-yellow">Выйти</a>
             </nav>
         </header>
         <!-- <div> -->
@@ -86,6 +87,7 @@
     // Используем одну и ту же версию 10.8.0 везде
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -104,9 +106,11 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const auth = getAuth(app);
 
     // Сделаем базу данных доступной для других скриптов
     window.db = db;
+    window.auth = auth;
     </script>
 
     <script type="module" src="../scripts/admin_map.js" defer></script>

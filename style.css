@@ -21,7 +21,6 @@ body {
     background-position: center center;
     background-repeat: no-repeat;
     width: 100%;
-    /* height: 100vh; */
     height: auto;
     min-height: 100vh; /* Пусть тянется, если контента много */
     padding-bottom: 50px; /* Добавим места снизу */
@@ -40,7 +39,6 @@ body {
     position: sticky;
     top: 0;
     z-index: 1002;
-
 }
 
 .logo {
@@ -48,14 +46,28 @@ body {
     padding: 20px;
 }
 
-.name-logo {
+.name-logo,
+.nav-buttons,
+.btn-image,
+.zag,
+.slider,
+.yellow-card,
+.stat-item,
+.company,
+.name-logo-foot {
     display: flex;
     align-items: center;
 }
 
+.btn-image,
+.zag,
+.slider,
+.feedback-container,
+.stats-grid {
+    justify-content: center;
+}
+
 .nav-buttons {
-    display: flex;
-    align-items: center;
     gap: 20px;
     margin-right: 7vh;
 }
@@ -77,11 +89,6 @@ body {
     background-color: #ffaa00;
 }
 
-.btn-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 /* Главный экран */
 .hero {
@@ -92,7 +99,6 @@ body {
     margin-top: 50px;
     display: flex;
     justify-content: space-evenly;
-    
 }
 
 .step-card {
@@ -109,9 +115,6 @@ body {
 }
 
 .zag {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin-bottom: 4vh;
 }
 
@@ -120,8 +123,8 @@ body {
     margin-right: 3vh;
 }
 
-/* Актуальные сборы */
 
+/* Актуальные сборы */
 /* Контейнер для заголовка, чтобы центрировать его */
 .title-container {
     margin-top: 10vh;
@@ -140,12 +143,6 @@ body {
     font-weight: bold;
 }
 
-.slider {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .cards-wrapper {
     display: flex;
     gap: 30px;
@@ -157,9 +154,7 @@ body {
     width: 250px;
     padding: 20px;
     border-radius: 30px; 
-    display: flex;
     flex-direction: column;
-    align-items: center;
     text-align: center;
 }
 
@@ -180,7 +175,6 @@ body {
     font-size: 0.9em;
 }
 
-
 .arrow {
     background-color: #fff200;
     border: none;
@@ -192,19 +186,19 @@ body {
     margin: 2%;
 }
 
+
 /* Статистика */
-.stats-grid {
+.stats-grid,
+.feedback-container,
+.contacts {
     display: flex;
-    justify-content: center;
 }
 
 .stat-item {
     background-color: #fff200;
     color: black;
     border-radius: 30px;
-    display: flex;
     flex-direction: column;
-    align-items: center;
     text-align: center;
     margin-right: 4vw;
     min-width: 15vw;
@@ -218,12 +212,8 @@ body {
     font-size: 1.2em;
 }
 
-/* Консультация */
 
-.feedback-container {
-    display: flex;
-    justify-content: center;
-}
+/* Консультация */
 
 .feedback-form {
     background-color: #fff200;
@@ -238,9 +228,14 @@ body {
 
 .name-go {
     display: flex;
-    flex-direction: column;
     gap: 10px;
     width: 250px;
+}
+
+.name-go,
+.company,
+.contacts {
+    flex-direction: column;
 }
 
 .name-go input, 
@@ -264,15 +259,7 @@ body {
     justify-content: space-between;
 }
 
-.company {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .name-logo-foot {
-    display: flex;
-    align-items: center;
     background-color: black;
     color: #fff200;
     border-radius: 30px;
@@ -280,8 +267,6 @@ body {
 }
 
 .contacts {
-    display: flex;
-    flex-direction: column;
     margin: 20px;
     margin-right: 50px;
 }
@@ -360,18 +345,59 @@ body {
     text-align: left;
 }
 
+/* Логин */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto; 
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.btn-google {
+    background: #db4437;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 95%;
+}
+
 
 /* Телефон */
 /* Стили для телефона (экран меньше 768px) */
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column; /* Шапка в два этажа */
+    .header,
+    .steps,
+    .stats-grid,
+    .cards-wrapper,
+    .footer,
+    .company {
+        flex-direction: column;
+    }
+
+    .header,
+    .steps,
+    .stats-grid,
+    .cards-wrapper,
+    .footer,
+    .company {
         align-items: center;
+    }
+
+
+    .header {
         padding-bottom: 15px;
     }
 
     .nav-buttons {
-
         margin-right: 0; /* Убираем отступ, центрируем */
         flex-wrap: wrap; /* Кнопки переносятся, если не влезают */
         justify-content: center;
@@ -396,8 +422,6 @@ body {
 
     /* Главный экран: карточки шагов в колонку */
     .steps {
-        flex-direction: column;
-        align-items: center;
         gap: 20px;
         width: 100%;
         padding: 0 20px;
@@ -409,13 +433,10 @@ body {
         max-width: 100%;
         font-size: 1em;
         padding: 20px;
-        /* box-sizing: border-box; */
     }
 
     /* Статистика в колонку */
     .stats-grid {
-        flex-direction: column;
-        align-items: center;
         gap: 15px;
     }
 
@@ -451,11 +472,6 @@ body {
         width: 100%;
         min-height: 150px;
     }
-
-    .cards-wrapper {
-        flex-direction: column; /* Просто выстроим их в ряд для начала */
-        align-items: center;
-    }
     
     .yellow-card {
         width: 80%; /* На весь экран телефона */
@@ -467,16 +483,12 @@ body {
     
     /* Подвал */
     .footer {
-        flex-direction: column;
-        align-items: center;
         justify-content: center;
         padding: 20px 0;
     }
 
     .company {
         display: flex;
-        flex-direction: column;
-        align-items: center;
     }
 
     .name-logo-foot {

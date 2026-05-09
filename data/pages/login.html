@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в админ-панель</title>
+    <link rel="icon" type="image/x-icon" href="../image/site/logo.svg">
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        .login-container { max-width: 400px; margin: 100px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; text-align: center; }
+        input { width: 90%; padding: 10px; margin: 10px 0; }
+        .btn-google { background: #db4437; color: white; border: none; padding: 10px; cursor: pointer; width: 95%; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Авторизация</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Пароль">
+        <button onclick="loginEmail()" class="btn-yellow">Войти</button>
+        <hr>
+        <button onclick="loginGoogle()" class="btn-google">Войти через Google</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAHH9_cw0IWOnjkTw-W59y15-pg3v0-JzU",
+            authDomain: "bishkeksolid-db.firebaseapp.com",
+            projectId: "bishkeksolid-db",
+            storageBucket: "bishkeksolid-db.firebasestorage.app",
+            messagingSenderId: "1001353097895",
+            appId: "1:1001353097895:web:ec8ecbf5f80547ac2e2182",
+            measurementId: "G-5WVG70BREF"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Вход по почте
+        window.loginEmail = () => {
+            const email = document.getElementById('email').value.trim();
+            const pass = document.getElementById('password').value;
+            signInWithEmailAndPassword(auth, email, pass)
+                .then(() => window.location.href = 'adminPage.html')
+                .catch(err => {
+                    console.error(err.code)
+                    alert("Ошибка: " + err.message)
+                });
+        };
+
+        // Вход через Google
+        window.loginGoogle = () => {
+            const provider = new GoogleAuthProvider();
+            signInWithPopup(auth, provider)
+                .then(() => window.location.href = 'adminPage.html')
+                .catch(err => alert("Ошибка Google: " + err.message));
+        };
+    </script>
+</body>
+</html>
