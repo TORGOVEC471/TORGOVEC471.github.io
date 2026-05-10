@@ -1,71 +1,3 @@
-// import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-// async function findFunds(need) {
-//     const orgsRef = collection(window.db, "organizations");
-//     // Ищем фонды, у которых категория совпадает с ответом пользователя
-//     const q = query(orgsRef, where("category", "==", need));
-    
-//     const querySnapshot = await getDocs(q);
-//     querySnapshot.forEach((doc) => {
-//         console.log("Подходящий фонд:", doc.data().name);
-//         // Выводим пользователю в список
-//     });
-// }
-
-// const steps = {
-//     start: {
-//         question: "Что вам требуется?",
-//         options: [
-//             { text: "Медицинские", next: "medical" },
-//             { text: "Приюты", next: "shelters" },
-//             { text: "Экологические", next: "eco" }
-//         ]
-//     },
-//     shelters: {
-//         question: "Кому нужна помощь?",
-//         options: [
-//             { text: "Животные", category: "Приюты", sub: "Животные" },
-//             { text: "Бездомные люди", category: "Приюты", sub: "Люди" }
-//         ]
-//     }
-//     // и так далее
-// };
-
-// import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-// async function showResults(mainCat, subCat) {
-//     const orgsRef = collection(window.db, "organizations");
-    
-//     // Делаем запрос к базе по двум параметрам
-//     const q = query(
-//         orgsRef, 
-//         where("main_category", "==", mainCat), 
-//         where("sub_category", "==", subCat)
-//     );
-
-//     const querySnapshot = await getDocs(q);
-//     const resultsDiv = document.getElementById("results");
-//     resultsDiv.innerHTML = ""; // Очистить старые результаты
-
-//     if (querySnapshot.empty) {
-//         resultsDiv.innerHTML = "К сожалению, подходящих фондов пока не найдено.";
-//         return;
-//     }
-
-//     querySnapshot.forEach((doc) => {
-//         const data = doc.data();
-//         resultsDiv.innerHTML += `
-//             <div class="fund-card">
-//                 <h3>${data.name}</h3>
-//                 <p>${data.description}</p>
-//                 <a href="${data.link}" target="_blank">Перейти на сайт</a>
-//             </div>
-//         `;
-//     });
-// }
-
-
-
 import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const quizData = {
@@ -74,7 +6,9 @@ const quizData = {
         options: [
             { text: "🏥 Медицинские фонды", next: "medical" },
             { text: "🐾 Приюты", next: "shelters" },
-            { text: "🌱 Экологические", next: "eco" }
+            { text: "🌱 Экологические", next: "eco" },
+            { text: "💰 Благотворительность", next: "charity" }
+            // { text: "📖 Образование", next: "education" }
         ]
     },
     shelters: {
@@ -90,7 +24,30 @@ const quizData = {
             { text: "Детское здоровье", mainCat: "Медицинские", subCat: "Дети" },
             { text: "Реабилитация", mainCat: "Медицинские", subCat: "Реабилитация" }
         ]
+    },
+    eco: {
+        question: "Какая экологическая помощь?",
+        options: [
+            { text: "Эко-мониторинг", mainCat: "Экологические", subCat: "Мониторинг" },
+            { text: "Экология", mainCat: "Экологические", subCat: "Экология" }
+        ]
+    },
+    charity: {
+        question: "Социальная поддержка:",
+        options: [
+            { text: "Помощь пожилым", mainCat: "Благотворительность", subCat: "Пожилые" },
+            { text: "Малоимущие семьи", mainCat: "Благотворительность", subCat: "Соц. Помощь" },
+            { text: "Молодежь", mainCat: "Благотворительность", subCat: "Молодежь" }
+        ]
     }
+    // education: {
+    //     question: "Ка",
+    //     options: [
+    //         { text: "Помощь пожилым", mainCat: "Благотворительные", subCat: "Пожилые" },
+    //         { text: "Малоимущие семьи", mainCat: "Благотворительные", subCat: "Соц. Помощь" },
+    //         { text: "Молодежь", mainCat: "Благотворительные", subCat: "Молодежь" }
+    //     ]
+    // }
 };
 
 const container = document.getElementById('quiz-app');

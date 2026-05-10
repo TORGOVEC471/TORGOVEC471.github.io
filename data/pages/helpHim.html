@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Бишкек Солидарный — Хочу помочь</title>
+    <title>Бишкек Солидарный — Карта</title>
     <link rel="icon" type="image/x-icon" href="../image/site/logo.svg">
     <link rel="stylesheet" href="../../style.css">
     <!-- Шрифты для текстов -->
@@ -34,7 +34,7 @@
                 <a href="./helpHim.html" class="btn-yellow">
                     <div class="btn-image">
                         <img src="../image/site/solar_hand-bottom.svg" width=30px>
-                        Хочу помочь
+                        Карта
                     </div>
                 </a>
                 <a href="./about.html" class="btn-yellow">О нас</a>
@@ -47,12 +47,22 @@
     <div id="form-container" class="form-container">
         <h3>Добавить помощь</h3>
         <label>Категория:</label><br>
-        <select id="marker-category">
+        <select id="marker-category" onchange="toggleOtherInput()">
             <option value="Еда">Еда (Волонтерство)</option>
+            <option value="Медицина">Медицина</option>
+            <option value="Благотворительность">Благотворительность</option>
             <option value="Одежда">Одежда / Вещи</option>
             <option value="Приют">Приют</option>
+            <option value="Экология">Экология</option>
             <option value="Другое">Другое</option>
         </select><br><br>
+
+        <!-- Поле, которое появляется при выборе "Другое" -->
+        <div id="other-category-container" style="display: none;">
+            <label>Уточните категорию:</label><br>
+            <input type="text" id="other-category-text" placeholder="Введите свою категорию"><br><br>
+        </div>
+
         <label>Название:</label><br>
         <input type="text" placeholder="Название" id="marker-name"><br>
         <label>Описание:</label><br>

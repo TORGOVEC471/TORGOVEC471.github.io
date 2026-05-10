@@ -1,6 +1,7 @@
 import { collection, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 // Импортируем сам скрипт геокодера как модуль (если доступно) или используем рабочий хак:
 import "https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js";
+import { MapIcons } from "./icons_map.js";
 
 // Логин, пароль и вход
 const checkAdmin = () => {
@@ -45,6 +46,16 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 L.Control.geocoder().addTo(map);
 
 let allMarkersData = []; // очищаем перед загрузкой
+const categoryColors = {
+    "Еда": "green",
+    "Медицина": "red",
+    "Благотворительность": "#00ffb8", // Цвет океана, ну или какой-то другой
+    "Одежда": "blue",
+    "Приют": "orange",
+    "Экология": "black",
+    "Другое": "fiol",
+    "default": "black" // Цвет по умолчанию, если категория не найдена
+};
 
 async function loadAdminMarkers() {
     if (!window.db) {
@@ -57,6 +68,7 @@ async function loadAdminMarkers() {
     querySnapshot.forEach((markerDoc) => {
         const data = markerDoc.data();
         const markerId = markerDoc.id;
+        const icon = MapIcons[data.category] || MapIcons["default"];
 
         // Делаем разные цвета для одобренных и неодобренных (по желанию)
         const markerColor = data.status === "approved" ? "green" : "orange";
@@ -68,7 +80,8 @@ async function loadAdminMarkers() {
             status: data.status
         })
         
-        const marker = L.marker(data.location).addTo(map);
+        const marker = L.marker(data.location, { icon: icon}).addTo(map);
+        const categoryColor = categoryColors[data.category] || categoryColors["default"];
         
         const adminContent = `
             <div style="min-width: 150px;">
@@ -78,7 +91,7 @@ async function loadAdminMarkers() {
                 <hr>
                 <b>Название: ${data.title}</b><br>
                 <p>Описание: ${data.description}</p>
-                <p>Категория: ${data.category}</p>
+                <p>Категория: <span style="color: ${categoryColor}; font-weight: bold;">${data.category}</span></p>
                 <hr>
                 ${data.status === 'pending' ? 
                     `<button onclick="approveMarker('${markerId}')" style="background: #4CAF50; color: white; border: none; padding: 5px; cursor: pointer; width: 100%;">✅ Одобрить</button>` 
@@ -96,17 +109,20 @@ async function loadAdminMarkers() {
 // Функция для отрисовки таблицы
 window.renderTable = (filter) => {
     const tbody = document.getElementById('table-body');
+    // const data = markerDoc.data();
     tbody.innerHTML = ''; // Очистка
 
     const filtered = filter === 'pending' 
         ? allMarkersData.filter(m => m.status === 'pending') 
         : allMarkersData;
 
+
     filtered.forEach(m => {
+        const categoryColor = categoryColors[m.category] || categoryColors["default"];
         const row = `
             <tr>
                 <td>${m.title || 'Без названия'}</td>
-                <td>${m.category}</td>
+                <td><span style="color: ${categoryColor}; font-weight: bold;">${m.category}</span></td>
                 <td>${m.description}</td>
                 <td style="color: ${m.status === 'approved' ? 'green' : 'orange'}">${m.status}</td>
                 <td>

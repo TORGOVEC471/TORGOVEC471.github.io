@@ -12,10 +12,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 L.Control.geocoder().addTo(map);
 
-// // Пример готовой метки с описанием и "отзывом"
-// const marker = L.marker([42.8746, 74.5698]).addTo(map);
-// marker.bindPopup("<b>Центр помощи</b><br>Нужны волонтеры для сборки конструкторов.");
-
 let tempLatlng = null; // Переменная для хранения координат клика
 
 map.on('click', function(e) {
@@ -25,15 +21,29 @@ map.on('click', function(e) {
 
 // Обработка кнопки сохранения в форме
 document.getElementById('save-btn').onclick = async () => {
-    const category = document.getElementById('marker-category').value;
+    let category = document.getElementById('marker-category').value;
     const name = document.getElementById('marker-name').value;
     const text = document.getElementById('marker-text').value;
+
+    if (category === 'Другое') {
+        const otherValue = document.getElementById('other-category-text').value.trim();
+        
+        // Если пользователь ничего не ввел в "Свою категорию", 
+        // можно либо оставить "Другое", либо вывести ошибку
+        if (otherValue !== "") {
+            category = otherValue;
+        }
+    }
     
     if (text && tempLatlng) {
         document.getElementById('form-container').style.display = 'none';
         
         // Добавляем на карту визуально
-        L.marker(tempLatlng).addTo(map).bindPopup(`Название: <b>${name}</b><br><br>Описание: ${text}<br><br>Категория: ${category}`).openPopup();
+        L.marker(tempLatlng).addTo(map).bindPopup(
+            `Название: <b>${name}</b><br><br>
+            Описание: ${text}<br><br>
+            Категория: ${category}`
+        ).openPopup();
         
         // Сохраняем в базу (добавь поле category в объект сохранения!)
         await saveMarker(tempLatlng.lat, tempLatlng.lng, name, text, category);
@@ -43,21 +53,21 @@ document.getElementById('save-btn').onclick = async () => {
     }
 };
 
-// map.on('click', async function(e) {
-//     const lat = e.latlng.lat;
-//     const lng = e.latlng.lng;
-
-//     // В будущем здесь будет форма для ввода описания
-//     const description = prompt("Введите описание вашей помощи:");
+// Отображения поля ввода при выборе категории "Другое"
+function toggleOtherInput() {
+    const categorySelect = document.getElementById('marker-category');
+    const otherInputContainer = document.getElementById('other-category-container');
     
-//     if (description) {
-//         L.marker([lat, lng]).addTo(map)
-//             .bindPopup(`<b>Предложение помощи:</b><br>${description}`)
-//             .openPopup();
-            
-//         await saveMarker(lat, lng, description);
-//     }
-// });
+    if (categorySelect.value === 'Другое') {
+        otherInputContainer.style.display = 'block';
+    } else {
+        otherInputContainer.style.display = 'none';
+        // Опционально: очищаем поле, если пользователь передумал
+        document.getElementById('other-category-text').value = '';
+    }
+}
+
+window.toggleOtherInput = toggleOtherInput;
 
 // Сохранение в базу данных меток
 async function saveMarker(lat, lng, name, text, category) {
@@ -83,18 +93,102 @@ async function saveMarker(lat, lng, name, text, category) {
 // =======
 
 const organizationsData = [
-  { name: "Добрые руки",
+    {
+    name: "Добрые руки",
     main_category: "Приюты",
     sub_category: "Животные",
-    description: "Помощь бездомным собакам и кошкам...",
-    contacts: "+996...",
-    link: "https://..." },
-  { name: "Злые руки хирургии",
-    main_category: "Медицина",
+    description: "Помощь бездомным, больным, собакам и кошкам.",
+    contacts: "+996 (709) 78-45-37",
+    link: "https://www.facebook.com/dobrieruki.kg"
+    },
+    {
+    name: "Help the Children - SKD",
+    main_category: "Медицинские",
+    sub_category: "Дети",
+    description: "Помощь детям с онкологическими, гематологическими и иммунологическими заболеваниями",
+    link: "https://www.facebook.com/fondskd"
+    },
+    {
+    name: "Элим, барсыңбы?!",
+    main_category: "Благотворительность",
+    sub_category: "Соц. Помощь",
+    description: "Занимаются широким спектром помощи: поддержка сирот, малоимущих семей, сбор средств на операции и раздача продуктов во время праздников",
+    link: "https://www.facebook.com/elimbarsinbi"
+    },
+    {
+    name: "Поможем вместе",
+    main_category: "Медицинские",
+    sub_category: "Дети",
+    description: "Сбор средств на лечение тяжелых заболеваний."
+    },
+    {
+    name: "Osteo Clinic",
+    main_category: "Медицинские",
+    sub_category: "Реабилитация",
+    description: "Восстановление после травм и операций.",
+    link: "https://osteoclinic.center/"
+    },
+    {
+    name: "Реацентр",
+    main_category: "Медицинские",
+    sub_category: "Реабилитация",
+    description: "ЛФК, массаж и неврологическая помощь.",
+    link: "https://www.instagram.com/reacenter.bishkek/"
+    },
+    {
+    name: "Право на жизнь",
+    main_category: "Приюты",
+    sub_category: "Животные",
+    description: "Приют для бездомных собак и кошек, стерилизация.",
+    contacts: "+996 (554) 20-51-05",
+    link: "https://www.facebook.com/pravonajiznbishkek"
+    },
+    {
+    name: "Коломто",
+    main_category: "Приюты",
     sub_category: "Люди",
-    description: "Вырежем все, чтобы спасти жизнь.",
-    contacts: "+996...",
-    link: "https://..." }
+    description: "Муниципальный приют для людей без дома.",
+    contacts: "+996 (312) 30-48-55"
+    },
+    {
+    name: "Фонтан жизни",
+    main_category: "Приюты",
+    sub_category: "Люди",
+    description: "Кормление и помощь людям на улице.",
+    contacts: "+996 (312) 37-16-45",
+    link: "https://www.fountainoflife.kg/"
+    },
+    {
+    name: "MoveGreen",
+    main_category: "Экологические",
+    sub_category: "Мониторинг",
+    description: "Датчики качества воздуха (AQ.kg), эко-образование.",
+    contacts: "+996 (312) 98-63-30",
+    link: "https://movegreen.kg/"
+    },
+    {
+    name: "Орхусский центр",
+    main_category: "Экологические",
+    sub_category: "Экология",
+    description: "Защита экологических прав граждан",
+    contacts: "+996 (312) 54-41-10",
+    link: "https://aarhus.kg/ru/"
+    },
+    {
+    name: "Babushka Adoption",
+    main_category: "Благотворительность",
+    sub_category: "Пожилые",
+    description: "Поддержка одиноких пенсионеров.",
+    contacts: "+996 (312) 54-41-10",
+    link: "http://babushkaadoption.org/"
+    },
+    {
+    name: "Oasis Kyrgyzstan",
+    main_category: "Благотворительность",
+    sub_category: "Молодежь",
+    description: "Помощь выпускникам детских домов.",
+    link: "https://oasisorg.kg/"
+    }
 ];
 
 // Сохранение в базу данных организаций
@@ -105,12 +199,12 @@ async function saveOrganizations(org) {
 
         // Используем ключи напрямую из объекта
         const docRef = await addDoc(collection(window.db, "organizations"), {
-            title: org.name,
-            description: org.description,
-            main_category: org.main_category,
-            sub_category: org.sub_category, // Добавили подкатегорию
-            contacts: org.contacts,
-            link: org.link,
+            title: org.name || "Без названия",
+            description: org.description || "Не указано",
+            main_category: org.main_category || "",
+            sub_category: org.sub_category || "", // Добавили подкатегорию
+            contacts: org.contacts || "",
+            link: org.link || "",
             status: "pending",
             timestamp: new Date()
         });
@@ -150,11 +244,16 @@ async function loadMarkers() {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
         const data = doc.data();
+        const icon = MapIcons[data.category] || MapIcons["default"];
         if (data.location) {
             // Ставим метку на карту
-            L.marker(data.location).addTo(map)
-                // .bindPopup(`<b>Загружено из базы:</b><br>${data.description}`);
-                .bindPopup(`Название: <b>${data.title}</b><br><br>Описание: ${data.description}<br><br>Категория: ${data.category}`);
+            L.marker(data.location, { icon: icon})
+                .addTo(map)
+                .bindPopup(
+                    `Название: <b>${data.title}</b><br><br>
+                    Описание: ${data.description}<br><br>
+                    Категория: ${data.category}`
+                );
         }
     });
 }
@@ -171,7 +270,3 @@ const checkDbAndLoad = () => {
 };
 
 checkDbAndLoad();
-
-// Нужно закончить карту.
-// - Сделать цветные метки
-// - Сделать свои иконки меток
